@@ -9,25 +9,28 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="15dp" />
+        android:layout_height="15dp"
+        android:layout_weight="0" />
 
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:background="@drawable/rounded_search_view"
         android:iconifiedByDefault="false"
         android:queryHint="Buscar..." />
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="10dp"
+        android:layout_weight="0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recview"
         android:layout_width="match_parent"
-        android:layout_height="665dp"
-        android:layout_weight="20"
+        android:layout_height="match_parent"
+        android:layout_weight="40"
         android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>
