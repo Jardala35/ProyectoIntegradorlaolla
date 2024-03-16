@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,12 +28,23 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView miRecyclerView;
     private LinearLayoutManager miLayoutManager;
     private ElAdaptador miAdapter;
+
+    private TabLayout tl;
+    private TabLayout.Tab itb1;
     private ArrayList<ItemLista> datos;
     private FirebaseDatabase db;
     private FirebaseStorage fs;
 
 
     ActivityResultLauncher<Intent> stfrores = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if(result.getResultCode() == RESULT_OK){
+
+            }
+        }
+    });
+    ActivityResultLauncher<Intent> stfrores2 = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
             if(result.getResultCode() == RESULT_OK){
@@ -67,8 +79,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         miRecyclerView.setAdapter(miAdapter);
-    }
-    private void cargarDatos(ArrayList datos){
+        tl = findViewById(R.id.tablayout);
+        tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                int tabPosition = tab.getPosition();
+                switch (tabPosition) {
+                    case 0:
+                        break;
+                    case 1:
+
+                        Intent intent = new Intent(getApplicationContext(), Anadir.class);
+                        stfrores2.launch(intent);
+                        tl.getTabAt(0).select();
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });}
+    public void cargarDatos(ArrayList datos){
         DatabaseReference dr = db.getInstance().getReference().child("recetas");
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -80,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                }
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

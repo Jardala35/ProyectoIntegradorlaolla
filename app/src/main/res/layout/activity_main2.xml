@@ -15,7 +15,7 @@
         android:src="@drawable/logo" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnguardar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"

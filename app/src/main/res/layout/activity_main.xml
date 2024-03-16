@@ -36,17 +36,20 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/itm1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/flame_fill"
             android:text="LaOlla" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/itm2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/plus_circle_fill"
