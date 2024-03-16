@@ -61,10 +61,9 @@ public class MainActivity extends AppCompatActivity {
         miAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // implementar el pasar a otra ventana con los datos de la receta
+
                 abrirReceta(v);
-                String msg = "Seleccionada la opción " + miRecyclerView.getChildAdapterPosition(v);
-                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+
             }
         });
         miRecyclerView.setAdapter(miAdapter);
