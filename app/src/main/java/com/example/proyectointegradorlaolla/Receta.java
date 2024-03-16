@@ -47,7 +47,7 @@ public class Receta extends AppCompatActivity {
         ingr = findViewById(R.id.ingredientes);
         pasos = findViewById(R.id.pasos);
         Intent intent = getIntent();
-        int aux = intent.getIntExtra("position", 0);
+        String aux = intent.getStringExtra("position");
         obtenerDatos(aux);
     }
 
@@ -71,8 +71,8 @@ public class Receta extends AppCompatActivity {
 
     }
 
-    public void obtenerDatos(int pos){
-            DatabaseReference dr = db.getInstance().getReference().child("recetas").child(String.valueOf(pos));
+    public void obtenerDatos(String pos){
+            DatabaseReference dr = db.getInstance().getReference().child("recetas").child(pos);
             dr.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -3,6 +3,7 @@ package com.example.proyectointegradorlaolla;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -28,9 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView miRecyclerView;
     private LinearLayoutManager miLayoutManager;
     private ElAdaptador miAdapter;
-
+    private SearchView searchview;
     private TabLayout tl;
-    private TabLayout.Tab itb1;
     private ArrayList<ItemLista> datos;
     private FirebaseDatabase db;
     private FirebaseStorage fs;
@@ -54,8 +54,11 @@ public class MainActivity extends AppCompatActivity {
     });
 
     public void abrirReceta(View view){
+        int pos = miRecyclerView.getChildAdapterPosition(view);
+        ItemLista selectedItem = miAdapter.getItemFromPosition(pos);
+        String nodo = selectedItem.getId();
         Intent intent = new Intent(this, Receta.class);
-        intent.putExtra("position", miRecyclerView.getChildAdapterPosition(view));
+        intent.putExtra("position", nodo);
         stfrores.launch(intent);
 
     }
@@ -63,22 +66,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        searchview = findViewById(R.id.searchView);
+        searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                miAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
         this.datos = new ArrayList<>();
         cargarDatos(datos);
         miRecyclerView = findViewById(R.id.recview);
         miRecyclerView.setHasFixedSize(true);
         miLayoutManager = new LinearLayoutManager(this);
         miRecyclerView.setLayoutManager(miLayoutManager);
-        miAdapter = new ElAdaptador(datos);
-        miAdapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                abrirReceta(v);
-
-            }
-        });
-        miRecyclerView.setAdapter(miAdapter);
         tl = findViewById(R.id.tablayout);
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -112,11 +119,32 @@ public class MainActivity extends AppCompatActivity {
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<ItemLista> aux = new ArrayList<>();
                for(DataSnapshot snoop: snapshot.getChildren()){
                    String uno = snoop.child("nombre").getValue(String.class);
                    String dos = snoop.child("imagen").getValue(String.class);
-                   datos.add(new ItemLista(dos, uno));
+
+                   String id = snoop.child("id").getValue(String.class);
+                   id = String.valueOf(Integer.parseInt(id) - 1);
+                   datos.add(new ItemLista(id, dos, uno));
+                   aux.add(new ItemLista(id, dos, uno));
                }
+                if (miAdapter == null) {
+                    miAdapter = new ElAdaptador(datos);
+                    miAdapter.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            abrirReceta(v);
+
+                        }
+                    });
+                    miRecyclerView.setAdapter(miAdapter);
+                } else {
+                    // Si el adaptador ya está establecido, actualiza los datos
+
+                    miAdapter.actualizarDatos(aux);
+                }
 
             }
             @Override

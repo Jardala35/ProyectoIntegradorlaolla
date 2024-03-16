@@ -8,8 +8,11 @@ public class ItemLista {
     private String img;
     private String texto;
 
+    private String id;
 
-    public ItemLista(String img, String textoup) {
+
+    public ItemLista(String id, String img, String textoup) {
+        this.id = id;
         this.img = img;
         this.texto = textoup;
     }
@@ -20,6 +23,10 @@ public class ItemLista {
 
     public String getImg() {
         return img;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void setImg(String img) {
