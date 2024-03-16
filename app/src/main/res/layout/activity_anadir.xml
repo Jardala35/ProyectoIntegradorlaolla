@@ -148,9 +148,16 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="#847676"
+                android:onClick="camara"
                 android:text="Añadir foto"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imgviewfoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 />
 
             <Space
                 android:layout_width="match_parent"

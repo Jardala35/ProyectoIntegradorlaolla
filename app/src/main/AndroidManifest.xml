@@ -28,9 +28,6 @@
             android:name=".Receta"
             android:exported="false" />
         <activity
-            android:name=".Anadir"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="false"></activity>
 
