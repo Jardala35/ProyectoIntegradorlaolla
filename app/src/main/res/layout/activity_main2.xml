@@ -21,8 +21,10 @@
         android:layout_marginTop="30dp"
         android:layout_weight="0"
         android:backgroundTint="@color/white"
+        android:fontFamily="@font/artifika"
         android:onClick="iniciar"
         android:text="Pulsa para entar"
-        android:textColor="#1E88E5" />
+        android:textColor="#1E88E5"
+        android:textSize="16sp" />
 
 </LinearLayout>

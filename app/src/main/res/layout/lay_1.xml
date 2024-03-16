@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_weight="1"
+        android:fontFamily="@font/artifika"
         android:paddingTop="50dp"
         android:textAlignment="center"
         android:textColor="#1E88E5"
