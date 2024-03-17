@@ -1,6 +1,7 @@
 package com.example.proyectointegradorlaolla;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -78,10 +79,22 @@ public class Receta extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         nombre.setText(snapshot.child("nombre").getValue(String.class).toString());
-                        veg.setText(snapshot.child("vegetariano").getValue(Boolean.class).toString());
-                        cel.setText(snapshot.child("celiaco").getValue(Boolean.class).toString());
+                        if (snapshot.child("vegetariano").getValue(Boolean.class).equals(true)){
+                            veg.setTextColor(Color.rgb(43,135,0));
+                            veg.setText("Es apta para vegetarianos");
+                        }else{
+                            veg.setTextColor(Color.rgb(210,25,4));
+                            veg.setText("No es apta para vegetarianos");
+                        }
+                        if (snapshot.child("celiaco").getValue(Boolean.class).equals(true)){
+                            cel.setTextColor(Color.rgb(43,135,0));
+                            cel.setText("Es apta para celiacos");
+                        }else{
+                            cel.setTextColor(Color.rgb(210,25,4));
+                            cel.setText("No es apta para celiacos");
+                        }
                         descr.setText(snapshot.child("descripcion").getValue(String.class).toString());
-                        tiempo.setText(snapshot.child("tiempo").getValue(Long.class).toString());
+                        tiempo.setText(snapshot.child("tiempo").getValue(Long.class).toString()+" minutos");
                         ingr.setText(snapshot.child("ingredientes").getValue(String.class).toString());
                         pasos.setText(snapshot.child("pasos").getValue(String.class).toString());
                         obtenerImagen(snapshot.child("imagen").getValue(String.class).toString());
